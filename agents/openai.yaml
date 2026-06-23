@@ -1,0 +1,19 @@
+name: codex-windows-safe-edit-guard
+description: Project-level safe edit guard for Codex Desktop on Windows when apply_patch or sandbox helper failures occur.
+version: 0.1.0
+license: MIT
+skill: ../SKILL.md
+entrypoints:
+  skill: ../SKILL.md
+  agents_template: ../templates/AGENTS.md.template
+  safe_edit_rules: ../templates/CODEX_SAFE_EDIT_RULES.md
+supports:
+  platforms:
+    - windows
+  tools:
+    - powershell
+    - python
+notes:
+  official_openai_project: false
+  modifies_codex_desktop: false
+  modifies_windowsapps: false

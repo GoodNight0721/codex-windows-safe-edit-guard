@@ -1,0 +1,40 @@
+﻿# Project Safe Edit Rules
+
+This project uses `codex-windows-safe-edit-guard` rules for Windows Codex Desktop safety.
+
+## Editing rules
+
+- Do not use apply_patch.
+- Do not use Codex built-in file edit helper.
+- Before editing, list files and plan, then wait for confirmation.
+- Write files only through PowerShell or Python with explicit UTF-8.
+- For non-ASCII content, read back and verify no ???.
+- After editing, run git status --short and git diff --name-only.
+- Do not commit or push unless user explicitly asks.
+- Do not delete untracked files unless user confirms.
+- Do not modify .codex / WindowsApps / Codex install / Cursor extension / AppData Codex binaries.
+
+## Recommended verification
+
+After any edit, report:
+
+1. Files created or modified.
+2. Commands used for verification.
+3. Output of git status --short.
+4. Output of git diff --name-only.
+5. Whether any unexpected ??? was found.
+
+<!-- safe-edit-guard-boundaries -->
+
+## Boundaries and limitations
+
+This is a workaround and guardrail, not an official Codex fix.
+
+It does not repack MSIX packages.
+It does not modify WindowsApps.
+It does not replace OpenAI binaries.
+It does not disable the Codex sandbox.
+It does not guarantee that Codex Desktop will never show sandbox/helper dialogs.
+
+It only reduces risk by avoiding `apply_patch` and Codex built-in file edit helper paths.
+
