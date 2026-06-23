@@ -4,13 +4,15 @@ Use this page to recognize common symptoms and choose a safer next step.
 
 ## Phone or remote client keeps running
 
-Symptom: the remote UI continues to show `running`, but no useful progress appears.
+Symptom: the phone, browser, or remote UI continues to show `running`, but no useful progress appears.
 
-Suggested action: check the desktop. If a sandbox helper popup is waiting, stop the risky edit path and use the safe edit workflow.
+What may be happening: the Windows desktop may have a `codex-windows-sandbox-setup.exe` dialog waiting for user action. The remote client can look stuck even though the real blocker is local.
+
+Suggested action: check the Windows desktop. If a sandbox helper popup is waiting, stop the risky edit path and use the safe edit workflow.
 
 ## Desktop popup appears
 
-Symptom: Windows shows a `codex-windows-sandbox-setup.exe` popup or a module-related error.
+Symptom: Windows shows a `codex-windows-sandbox-setup.exe` popup or a module-related error such as `找不到指定的模块` or `The specified module could not be found`.
 
 Suggested action: do not retry the same edit helper repeatedly. Use PowerShell or Python scripts with explicit UTF-8 and keep changes project-local.
 

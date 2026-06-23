@@ -1,6 +1,17 @@
-﻿# Project Safe Edit Rules
+# Project Safe Edit Rules
 
 This project uses `codex-windows-safe-edit-guard` rules for Windows Codex Desktop safety.
+
+These rules are a project-level workaround / guardrail. They are not an official OpenAI fix, not a root fix, and not a 100% guarantee.
+
+## Scope boundary
+
+- Do not modify WindowsApps.
+- Do not repackage MSIX.
+- Do not edit app.asar.
+- Do not replace OpenAI binaries.
+- Do not disable the sandbox.
+- Do not modify .codex / Codex install / Cursor extension / AppData Codex binaries.
 
 ## Editing rules
 
@@ -12,7 +23,6 @@ This project uses `codex-windows-safe-edit-guard` rules for Windows Codex Deskto
 - After editing, run git status --short and git diff --name-only.
 - Do not commit or push unless user explicitly asks.
 - Do not delete untracked files unless user confirms.
-- Do not modify .codex / WindowsApps / Codex install / Cursor extension / AppData Codex binaries.
 
 ## Recommended verification
 
@@ -23,18 +33,3 @@ After any edit, report:
 3. Output of git status --short.
 4. Output of git diff --name-only.
 5. Whether any unexpected ??? was found.
-
-<!-- safe-edit-guard-boundaries -->
-
-## Boundaries and limitations
-
-This is a workaround and guardrail, not an official Codex fix.
-
-It does not repack MSIX packages.
-It does not modify WindowsApps.
-It does not replace OpenAI binaries.
-It does not disable the Codex sandbox.
-It does not guarantee that Codex Desktop will never show sandbox/helper dialogs.
-
-It only reduces risk by avoiding `apply_patch` and Codex built-in file edit helper paths.
-

@@ -1,24 +1,35 @@
-﻿# Codex Safe Edit Rules for Windows
+# Codex Safe Edit Rules for Windows
 
-These rules are for projects used with Codex Desktop on Windows when file editing helpers may trigger sandbox helper failures.
+These rules are for Windows Codex Desktop projects where file editing may trigger `codex-windows-sandbox-setup.exe` errors.
 
-## Why these rules exist
+They are a workaround / guardrail, not an official OpenAI fix and not a root fix. They do not guarantee that the upstream bug is solved.
 
-Some users see `codex-windows-sandbox-setup.exe` popups or stalled sessions when Codex uses `apply_patch` or an internal file editing helper. At the same time, ordinary PowerShell and Python commands may still work. This template keeps edits simple, visible, and reversible.
+## The short version
+
+If normal PowerShell or Python commands work, but Codex file edits trigger a sandbox helper dialog, avoid the risky edit path. Ask Codex to write files with explicit PowerShell or Python UTF-8 operations instead.
+
+## What these rules never do
+
+- They do not modify WindowsApps.
+- They do not repackage MSIX.
+- They do not edit app.asar.
+- They do not replace OpenAI binaries.
+- They do not disable the sandbox.
+- They do not require administrator permissions.
 
 ## Rule details
 
 ### Do not use apply_patch
 
-`apply_patch` can be convenient, but on affected Windows setups it may trigger the failure path. Use PowerShell or Python scripts instead.
+`apply_patch` can be convenient, but on affected Windows setups it may trigger the sandbox helper failure path. Use PowerShell or Python scripts instead.
 
 ### Do not use built-in file edit helpers
 
-Use plain scripts where the exact write operation is visible. This makes it easier to audit what changed.
+Use plain scripts where the exact write operation is visible. This makes it easier to audit what changed and recover from a bad edit.
 
 ### Plan before editing
 
-Before changing files, the agent should explain the intended changes, list the files to be modified, and wait for confirmation. This prevents accidental edits outside the requested scope.
+Before changing files, the agent should explain the intended changes, list the files to be modified, and wait for confirmation.
 
 ### Use explicit UTF-8
 
@@ -49,12 +60,3 @@ Do not modify `.codex`, `WindowsApps`, Codex Desktop installation files, Cursor 
 - Review `git status --short` and `git diff`.
 - Restore from the `.bak_yyyyMMdd_HHmmss` backup if a safe helper created one.
 - Ask the user before deleting untracked files or reverting changes.
-
-<!-- safe-edit-guard-green-tests-note -->
-
-## Green tests do not prove the upstream bug is gone
-
-A green canary result is useful, but it is not proof that the upstream Codex Desktop bug has disappeared.
-
-It only proves that the current safe workflow avoided the risky path during that specific run. Continue to avoid `apply_patch` and built-in file edit helper paths unless the user explicitly disables this guard.
-
